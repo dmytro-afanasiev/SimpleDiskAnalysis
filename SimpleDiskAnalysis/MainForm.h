@@ -73,27 +73,27 @@ namespace SimpleDiskAnalysis {
 			this->menu->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) { this->fileMenuItem, this->helpMenuItem });
 			this->menu->Location = System::Drawing::Point(0, 0);
 			this->menu->Name = L"menu";
-			this->menu->Size = System::Drawing::Size(814, 30);
+			this->menu->Size = System::Drawing::Size(814, 25);
 			this->menu->TabIndex = 0;
 			this->menu->Text = L"menuText";
 			// 
 			// fileMenuItem
 			// 
 			this->fileMenuItem->Name = L"fileMenuItem";
-			this->fileMenuItem->Size = System::Drawing::Size(57, 26);
+			this->fileMenuItem->Size = System::Drawing::Size(57, 21);
 			this->fileMenuItem->Text = L"Файл";
 			// 
 			// helpMenuItem
 			// 
 			this->helpMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(1) { this->aboutMenuItem });
 			this->helpMenuItem->Name = L"helpMenuItem";
-			this->helpMenuItem->Size = System::Drawing::Size(80, 26);
+			this->helpMenuItem->Size = System::Drawing::Size(80, 21);
 			this->helpMenuItem->Text = L"Справка";
 			// 
 			// aboutMenuItem
 			// 
 			this->aboutMenuItem->Name = L"aboutMenuItem";
-			this->aboutMenuItem->Size = System::Drawing::Size(182, 26);
+			this->aboutMenuItem->Size = System::Drawing::Size(224, 26);
 			this->aboutMenuItem->Text = L"Про програму";
 			this->aboutMenuItem->Click += gcnew System::EventHandler(this, &MainForm::aboutMenuItemClick);
 			// 
@@ -108,6 +108,7 @@ namespace SimpleDiskAnalysis {
 			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->Name = L"MainForm";
 			this->Text = L"Simple Disk Analysis";
+			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &MainForm::mainFormClosing);
 			this->Load += gcnew System::EventHandler(this, &MainForm::mainFormLoad);
 			this->menu->ResumeLayout(false);
 			this->menu->PerformLayout();
@@ -124,5 +125,12 @@ namespace SimpleDiskAnalysis {
 		AboutForm^ aboutForm = gcnew AboutForm;
 		aboutForm->Show();
 	}
-};
+	private: System::Void mainFormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
+		System::Windows::Forms::DialogResult result = MessageBox::Show("Ви дійсно хочете закрити додаток?", "Увага!", MessageBoxButtons::YesNo, MessageBoxIcon::Warning);
+		if (result != System::Windows::Forms::DialogResult::Yes) {
+			e->Cancel = true;
+		}
+	}
+	};
 }
+
