@@ -7,6 +7,6 @@ using namespace System::Windows::Forms;
 void main() {
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false);
-	SimpleDiskAnalysis::MainForm mainform;
-	Application::Run(% mainform);
+	SimpleDiskAnalysis::MainForm mainForm;
+	Application::Run(% mainForm);
 }
