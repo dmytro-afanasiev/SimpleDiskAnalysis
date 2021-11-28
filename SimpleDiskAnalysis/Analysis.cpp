@@ -15,4 +15,5 @@ System::Void Analysis::execute()
             this->outTextBox->AppendText(fileMeta->getInfoString());
         }
     }
+    std::string f = "fasd";
 }

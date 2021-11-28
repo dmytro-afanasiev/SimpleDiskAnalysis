@@ -25,6 +25,9 @@ uintmax_t FileMeta::getFileSize()
 
 String^ FileMeta::getHumanSize()
 {
+	if (this->fileSize == 0) {
+		return gcnew String("0 B");
+	}
 	int logBase = 1024;
 	char* suffixes[] = { "B", "KB", "MB", "GB", "TB" };  // 5 
 	short numberOfsuffixes = 5;

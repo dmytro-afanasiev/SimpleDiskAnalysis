@@ -91,7 +91,7 @@ namespace SimpleDiskAnalysis {
 			this->menu->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) { this->fileMenuItem, this->helpMenuItem });
 			this->menu->Location = System::Drawing::Point(0, 0);
 			this->menu->Name = L"menu";
-			this->menu->Size = System::Drawing::Size(814, 25);
+			this->menu->Size = System::Drawing::Size(814, 30);
 			this->menu->TabIndex = 0;
 			this->menu->Text = L"menuText";
 			// 
@@ -99,7 +99,7 @@ namespace SimpleDiskAnalysis {
 			// 
 			this->fileMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(1) { this->infoMenuItem });
 			this->fileMenuItem->Name = L"fileMenuItem";
-			this->fileMenuItem->Size = System::Drawing::Size(57, 21);
+			this->fileMenuItem->Size = System::Drawing::Size(57, 26);
 			this->fileMenuItem->Text = L"Файл";
 			// 
 			// infoMenuItem
@@ -114,7 +114,7 @@ namespace SimpleDiskAnalysis {
 			// 
 			this->helpMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(1) { this->aboutMenuItem });
 			this->helpMenuItem->Name = L"helpMenuItem";
-			this->helpMenuItem->Size = System::Drawing::Size(80, 21);
+			this->helpMenuItem->Size = System::Drawing::Size(80, 26);
 			this->helpMenuItem->Text = L"Справка";
 			// 
 			// aboutMenuItem
@@ -151,7 +151,8 @@ namespace SimpleDiskAnalysis {
 			this->analysisInformation->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->analysisInformation->Font = (gcnew System::Drawing::Font(L"Arial", 9, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->analysisInformation->Location = System::Drawing::Point(12, 130);
+			this->analysisInformation->Location = System::Drawing::Point(11, 130);
+			this->analysisInformation->MaxLength = 2147483647;
 			this->analysisInformation->Multiline = true;
 			this->analysisInformation->Name = L"analysisInformation";
 			this->analysisInformation->ReadOnly = true;
