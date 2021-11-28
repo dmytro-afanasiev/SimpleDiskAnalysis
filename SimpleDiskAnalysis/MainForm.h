@@ -49,6 +49,8 @@ namespace SimpleDiskAnalysis {
 	private: System::Windows::Forms::ToolStripMenuItem^ infoMenuItem;
 	private: System::Windows::Forms::FolderBrowserDialog^ choseFolderToAnalyze;
 	private: System::Windows::Forms::TextBox^ analysisInformation;
+	private: System::Windows::Forms::Label^ statusLabel;
+	private: System::Windows::Forms::Label^ statusValueLabel;
 
 
 
@@ -79,6 +81,8 @@ namespace SimpleDiskAnalysis {
 			this->startButton = (gcnew System::Windows::Forms::Button());
 			this->choseFolderToAnalyze = (gcnew System::Windows::Forms::FolderBrowserDialog());
 			this->analysisInformation = (gcnew System::Windows::Forms::TextBox());
+			this->statusLabel = (gcnew System::Windows::Forms::Label());
+			this->statusValueLabel = (gcnew System::Windows::Forms::Label());
 			this->menu->SuspendLayout();
 			this->SuspendLayout();
 			// 
@@ -151,15 +155,36 @@ namespace SimpleDiskAnalysis {
 			this->analysisInformation->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->analysisInformation->Font = (gcnew System::Drawing::Font(L"Arial", 9, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->analysisInformation->Location = System::Drawing::Point(11, 130);
+			this->analysisInformation->Location = System::Drawing::Point(11, 155);
 			this->analysisInformation->MaxLength = 2147483647;
 			this->analysisInformation->Multiline = true;
 			this->analysisInformation->Name = L"analysisInformation";
 			this->analysisInformation->ReadOnly = true;
 			this->analysisInformation->ScrollBars = System::Windows::Forms::ScrollBars::Vertical;
-			this->analysisInformation->Size = System::Drawing::Size(790, 333);
+			this->analysisInformation->Size = System::Drawing::Size(790, 308);
 			this->analysisInformation->TabIndex = 3;
-			this->analysisInformation->Text = L"Проаналізовані файли:\r\n";
+			// 
+			// statusLabel
+			// 
+			this->statusLabel->AutoSize = true;
+			this->statusLabel->Font = (gcnew System::Drawing::Font(L"Arial", 10.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->statusLabel->Location = System::Drawing::Point(12, 466);
+			this->statusLabel->Name = L"statusLabel";
+			this->statusLabel->Size = System::Drawing::Size(70, 19);
+			this->statusLabel->TabIndex = 4;
+			this->statusLabel->Text = L"Статус:";
+			// 
+			// statusValueLabel
+			// 
+			this->statusValueLabel->AutoSize = true;
+			this->statusValueLabel->Font = (gcnew System::Drawing::Font(L"Arial", 10.2F, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
+			this->statusValueLabel->ForeColor = System::Drawing::SystemColors::ActiveCaptionText;
+			this->statusValueLabel->Location = System::Drawing::Point(79, 467);
+			this->statusValueLabel->Name = L"statusValueLabel";
+			this->statusValueLabel->Size = System::Drawing::Size(0, 19);
+			this->statusValueLabel->TabIndex = 5;
 			// 
 			// MainForm
 			// 
@@ -167,6 +192,8 @@ namespace SimpleDiskAnalysis {
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::SystemColors::ButtonFace;
 			this->ClientSize = System::Drawing::Size(814, 504);
+			this->Controls->Add(this->statusValueLabel);
+			this->Controls->Add(this->statusLabel);
 			this->Controls->Add(this->analysisInformation);
 			this->Controls->Add(this->startButton);
 			this->Controls->Add(this->menu);
@@ -191,6 +218,9 @@ namespace SimpleDiskAnalysis {
 	private: System::Void mainFormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e);
 	private: System::Void startButtonClick(System::Object^ sender, System::EventArgs^ e);
 	private: System::Void infoMenuItemClick(System::Object^ sender, System::EventArgs^ e);
+
+	private: System::Void setStatusValue(String^ text, System::Drawing::Color color);
+	private: System::Void setStatusValue();
 };
 }
 

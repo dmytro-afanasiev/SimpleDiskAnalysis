@@ -1,6 +1,5 @@
 #include "FileMeta.h"
 
-
 FileMeta::FileMeta(String^ pathToFile, uintmax_t fileSize)
 {
 	this->pathToFile = pathToFile;
