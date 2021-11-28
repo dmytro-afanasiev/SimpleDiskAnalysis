@@ -115,17 +115,11 @@ namespace SimpleDiskAnalysis {
 			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->Name = L"AboutForm";
 			this->Text = L"Про програму";
-			this->Load += gcnew System::EventHandler(this, &AboutForm::AboutForm_Load);
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
 		}
 #pragma endregion
-
-	private: System::Void AboutForm_Load(System::Object^ sender, System::EventArgs^ e) {
-	}
-	private: System::Void understandButtonClick(System::Object^ sender, System::EventArgs^ e) {
-		AboutForm::Close();
-	}
+	private: System::Void understandButtonClick(System::Object^ sender, System::EventArgs^ e);
 	};
 }

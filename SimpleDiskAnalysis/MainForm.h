@@ -9,6 +9,7 @@ namespace SimpleDiskAnalysis {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+	using namespace System::Diagnostics;
 
 	/// <summary>
 	/// Summary for MainForm
@@ -39,6 +40,8 @@ namespace SimpleDiskAnalysis {
 	private: System::Windows::Forms::ToolStripMenuItem^ fileMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^ helpMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^ aboutMenuItem;
+	private: System::Windows::Forms::Button^ startButton;
+
 
 	protected:
 	private: System::ComponentModel::IContainer^ components;
@@ -61,6 +64,7 @@ namespace SimpleDiskAnalysis {
 			this->fileMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->helpMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->aboutMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->startButton = (gcnew System::Windows::Forms::Button());
 			this->menu->SuspendLayout();
 			this->SuspendLayout();
 			// 
@@ -93,9 +97,23 @@ namespace SimpleDiskAnalysis {
 			// aboutMenuItem
 			// 
 			this->aboutMenuItem->Name = L"aboutMenuItem";
-			this->aboutMenuItem->Size = System::Drawing::Size(224, 26);
+			this->aboutMenuItem->Size = System::Drawing::Size(182, 26);
 			this->aboutMenuItem->Text = L"Про програму";
 			this->aboutMenuItem->Click += gcnew System::EventHandler(this, &MainForm::aboutMenuItemClick);
+			// 
+			// startButton
+			// 
+			this->startButton->BackColor = System::Drawing::SystemColors::ButtonFace;
+			this->startButton->FlatStyle = System::Windows::Forms::FlatStyle::System;
+			this->startButton->Font = (gcnew System::Drawing::Font(L"Arial", 10.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->startButton->Location = System::Drawing::Point(171, 131);
+			this->startButton->Name = L"startButton";
+			this->startButton->Size = System::Drawing::Size(449, 45);
+			this->startButton->TabIndex = 2;
+			this->startButton->Text = L"Розпочати аналіз";
+			this->startButton->UseVisualStyleBackColor = false;
+			this->startButton->Click += gcnew System::EventHandler(this, &MainForm::startButtonClick);
 			// 
 			// MainForm
 			// 
@@ -103,6 +121,7 @@ namespace SimpleDiskAnalysis {
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::SystemColors::ButtonFace;
 			this->ClientSize = System::Drawing::Size(814, 504);
+			this->Controls->Add(this->startButton);
 			this->Controls->Add(this->menu);
 			this->ForeColor = System::Drawing::SystemColors::ControlText;
 			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
@@ -121,16 +140,10 @@ namespace SimpleDiskAnalysis {
 	private: System::Void mainFormLoad(System::Object^ sender, System::EventArgs^ e) {
 	}
 
-	private: System::Void aboutMenuItemClick(System::Object^ sender, System::EventArgs^ e) {
-		AboutForm^ aboutForm = gcnew AboutForm;
-		aboutForm->Show();
-	}
-	private: System::Void mainFormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
-		System::Windows::Forms::DialogResult result = MessageBox::Show("Ви дійсно хочете закрити додаток?", "Увага!", MessageBoxButtons::YesNo, MessageBoxIcon::Warning);
-		if (result != System::Windows::Forms::DialogResult::Yes) {
-			e->Cancel = true;
-		}
-	}
+	private: System::Void aboutMenuItemClick(System::Object^ sender, System::EventArgs^ e);
+
+	private: System::Void mainFormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e);
+	private: System::Void startButtonClick(System::Object^ sender, System::EventArgs^ e);
 	};
 }
 
