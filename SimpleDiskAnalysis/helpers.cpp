@@ -1,5 +1,12 @@
 #include "helpers.h"
 
+
+std::string Helpers::toStandartString(String^ s) {
+    msclr::interop::marshal_context context;
+    return context.marshal_as<std::string>(s);    
+}
+
+
 String^ Helpers::getDisksInfoString()
 {
     String^ newLine = System::Environment::NewLine;
@@ -59,3 +66,4 @@ String^ Helpers::getDisksInfoString()
     delete[] driveStrings;
     return resultString;
 }
+

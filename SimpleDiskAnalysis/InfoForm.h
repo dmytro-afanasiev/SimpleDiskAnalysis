@@ -1,4 +1,5 @@
 #pragma once
+#include "helpers.h"
 
 namespace SimpleDiskAnalysis {
 

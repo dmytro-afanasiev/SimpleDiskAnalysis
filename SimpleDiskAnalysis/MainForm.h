@@ -1,6 +1,9 @@
 #pragma once
 #include "AboutForm.h"
 #include "InfoForm.h"
+#include "helpers.h"
+#include "FileMeta.h"
+#include "Analysis.h"
 
 namespace SimpleDiskAnalysis {
 
@@ -11,6 +14,7 @@ namespace SimpleDiskAnalysis {
 	using namespace System::Data;
 	using namespace System::Drawing;
 	using namespace System::Diagnostics;
+	using namespace System::Collections::Generic;
 
 	/// <summary>
 	/// Summary for MainForm
@@ -43,6 +47,9 @@ namespace SimpleDiskAnalysis {
 	private: System::Windows::Forms::ToolStripMenuItem^ aboutMenuItem;
 	private: System::Windows::Forms::Button^ startButton;
 	private: System::Windows::Forms::ToolStripMenuItem^ infoMenuItem;
+	private: System::Windows::Forms::FolderBrowserDialog^ choseFolderToAnalyze;
+	private: System::Windows::Forms::TextBox^ analysisInformation;
+
 
 
 
@@ -70,6 +77,8 @@ namespace SimpleDiskAnalysis {
 			this->helpMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->aboutMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->startButton = (gcnew System::Windows::Forms::Button());
+			this->choseFolderToAnalyze = (gcnew System::Windows::Forms::FolderBrowserDialog());
+			this->analysisInformation = (gcnew System::Windows::Forms::TextBox());
 			this->menu->SuspendLayout();
 			this->SuspendLayout();
 			// 
@@ -97,7 +106,7 @@ namespace SimpleDiskAnalysis {
 			// 
 			this->infoMenuItem->Name = L"infoMenuItem";
 			this->infoMenuItem->ShortcutKeys = static_cast<System::Windows::Forms::Keys>((System::Windows::Forms::Keys::Control | System::Windows::Forms::Keys::I));
-			this->infoMenuItem->Size = System::Drawing::Size(224, 26);
+			this->infoMenuItem->Size = System::Drawing::Size(163, 26);
 			this->infoMenuItem->Text = L"Інфо";
 			this->infoMenuItem->Click += gcnew System::EventHandler(this, &MainForm::infoMenuItemClick);
 			// 
@@ -122,7 +131,7 @@ namespace SimpleDiskAnalysis {
 			this->startButton->FlatStyle = System::Windows::Forms::FlatStyle::System;
 			this->startButton->Font = (gcnew System::Drawing::Font(L"Arial", 10.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->startButton->Location = System::Drawing::Point(178, 91);
+			this->startButton->Location = System::Drawing::Point(172, 62);
 			this->startButton->Name = L"startButton";
 			this->startButton->Size = System::Drawing::Size(449, 45);
 			this->startButton->TabIndex = 2;
@@ -130,12 +139,34 @@ namespace SimpleDiskAnalysis {
 			this->startButton->UseVisualStyleBackColor = false;
 			this->startButton->Click += gcnew System::EventHandler(this, &MainForm::startButtonClick);
 			// 
+			// choseFolderToAnalyze
+			// 
+			this->choseFolderToAnalyze->Description = L"Виберіть папку для аналізу";
+			this->choseFolderToAnalyze->RootFolder = System::Environment::SpecialFolder::MyComputer;
+			this->choseFolderToAnalyze->ShowNewFolderButton = false;
+			// 
+			// analysisInformation
+			// 
+			this->analysisInformation->BackColor = System::Drawing::SystemColors::ControlLight;
+			this->analysisInformation->BorderStyle = System::Windows::Forms::BorderStyle::None;
+			this->analysisInformation->Font = (gcnew System::Drawing::Font(L"Arial", 9, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->analysisInformation->Location = System::Drawing::Point(12, 130);
+			this->analysisInformation->Multiline = true;
+			this->analysisInformation->Name = L"analysisInformation";
+			this->analysisInformation->ReadOnly = true;
+			this->analysisInformation->ScrollBars = System::Windows::Forms::ScrollBars::Vertical;
+			this->analysisInformation->Size = System::Drawing::Size(790, 333);
+			this->analysisInformation->TabIndex = 3;
+			this->analysisInformation->Text = L"Проаналізовані файли:\r\n";
+			// 
 			// MainForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::SystemColors::ButtonFace;
 			this->ClientSize = System::Drawing::Size(814, 504);
+			this->Controls->Add(this->analysisInformation);
 			this->Controls->Add(this->startButton);
 			this->Controls->Add(this->menu);
 			this->ForeColor = System::Drawing::SystemColors::ControlText;

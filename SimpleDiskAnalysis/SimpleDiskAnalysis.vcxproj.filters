@@ -30,6 +30,12 @@
     <ClCompile Include="InfoForm.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="FileMeta.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Analysis.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainForm.h">
@@ -42,6 +48,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="InfoForm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FileMeta.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Analysis.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
