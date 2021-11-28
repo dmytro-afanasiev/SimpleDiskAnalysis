@@ -121,11 +121,17 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AboutForm.cpp" />
+    <ClCompile Include="helpers.cpp" />
+    <ClCompile Include="InfoForm.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainForm.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AboutForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="helpers.h" />
+    <ClInclude Include="InfoForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="MainForm.h">
@@ -135,6 +141,9 @@
   <ItemGroup>
     <EmbeddedResource Include="AboutForm.resx">
       <DependentUpon>AboutForm.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InfoForm.resx">
+      <DependentUpon>InfoForm.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.h</DependentUpon>

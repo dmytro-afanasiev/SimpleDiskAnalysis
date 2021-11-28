@@ -1,5 +1,6 @@
 #pragma once
 #include "AboutForm.h"
+#include "InfoForm.h"
 
 namespace SimpleDiskAnalysis {
 
@@ -41,6 +42,9 @@ namespace SimpleDiskAnalysis {
 	private: System::Windows::Forms::ToolStripMenuItem^ helpMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^ aboutMenuItem;
 	private: System::Windows::Forms::Button^ startButton;
+	private: System::Windows::Forms::ToolStripMenuItem^ infoMenuItem;
+
+
 
 
 	protected:
@@ -62,6 +66,7 @@ namespace SimpleDiskAnalysis {
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MainForm::typeid));
 			this->menu = (gcnew System::Windows::Forms::MenuStrip());
 			this->fileMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->infoMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->helpMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->aboutMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->startButton = (gcnew System::Windows::Forms::Button());
@@ -83,9 +88,18 @@ namespace SimpleDiskAnalysis {
 			// 
 			// fileMenuItem
 			// 
+			this->fileMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(1) { this->infoMenuItem });
 			this->fileMenuItem->Name = L"fileMenuItem";
 			this->fileMenuItem->Size = System::Drawing::Size(57, 21);
 			this->fileMenuItem->Text = L"Файл";
+			// 
+			// infoMenuItem
+			// 
+			this->infoMenuItem->Name = L"infoMenuItem";
+			this->infoMenuItem->ShortcutKeys = static_cast<System::Windows::Forms::Keys>((System::Windows::Forms::Keys::Control | System::Windows::Forms::Keys::I));
+			this->infoMenuItem->Size = System::Drawing::Size(224, 26);
+			this->infoMenuItem->Text = L"Інфо";
+			this->infoMenuItem->Click += gcnew System::EventHandler(this, &MainForm::infoMenuItemClick);
 			// 
 			// helpMenuItem
 			// 
@@ -97,7 +111,8 @@ namespace SimpleDiskAnalysis {
 			// aboutMenuItem
 			// 
 			this->aboutMenuItem->Name = L"aboutMenuItem";
-			this->aboutMenuItem->Size = System::Drawing::Size(182, 26);
+			this->aboutMenuItem->ShortcutKeys = static_cast<System::Windows::Forms::Keys>((System::Windows::Forms::Keys::Control | System::Windows::Forms::Keys::A));
+			this->aboutMenuItem->Size = System::Drawing::Size(231, 26);
 			this->aboutMenuItem->Text = L"Про програму";
 			this->aboutMenuItem->Click += gcnew System::EventHandler(this, &MainForm::aboutMenuItemClick);
 			// 
@@ -107,7 +122,7 @@ namespace SimpleDiskAnalysis {
 			this->startButton->FlatStyle = System::Windows::Forms::FlatStyle::System;
 			this->startButton->Font = (gcnew System::Drawing::Font(L"Arial", 10.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->startButton->Location = System::Drawing::Point(171, 131);
+			this->startButton->Location = System::Drawing::Point(178, 91);
 			this->startButton->Name = L"startButton";
 			this->startButton->Size = System::Drawing::Size(449, 45);
 			this->startButton->TabIndex = 2;
@@ -137,13 +152,13 @@ namespace SimpleDiskAnalysis {
 		}
 #pragma endregion
 
-	private: System::Void mainFormLoad(System::Object^ sender, System::EventArgs^ e) {
-	}
+	private: System::Void mainFormLoad(System::Object^ sender, System::EventArgs^ e);
 
 	private: System::Void aboutMenuItemClick(System::Object^ sender, System::EventArgs^ e);
 
 	private: System::Void mainFormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e);
 	private: System::Void startButtonClick(System::Object^ sender, System::EventArgs^ e);
-	};
+	private: System::Void infoMenuItemClick(System::Object^ sender, System::EventArgs^ e);
+};
 }
 

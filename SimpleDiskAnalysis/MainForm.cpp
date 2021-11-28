@@ -1,5 +1,5 @@
 #include "MainForm.h"
-#include <Windows.h>
+#include "helpers.h"
 
 System::Void SimpleDiskAnalysis::MainForm::aboutMenuItemClick(System::Object^ sender, System::EventArgs^ e) {
 	AboutForm^ aboutForm = gcnew AboutForm;
@@ -13,6 +13,15 @@ System::Void SimpleDiskAnalysis::MainForm::mainFormClosing(System::Object^ sende
 	}
 }
 
+System::Void SimpleDiskAnalysis::MainForm::mainFormLoad(System::Object^ sender, System::EventArgs^ e) {
+}
+
+
 System::Void SimpleDiskAnalysis::MainForm::startButtonClick(System::Object^ sender, System::EventArgs^ e) {
-	
+}
+
+System::Void SimpleDiskAnalysis::MainForm::infoMenuItemClick(System::Object^ sender, System::EventArgs^ e)
+{
+	InfoForm^ infoForm = gcnew InfoForm;
+	infoForm->Show();
 }
