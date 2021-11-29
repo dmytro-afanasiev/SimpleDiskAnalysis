@@ -14,6 +14,7 @@ System::Void Analysis::execute()
         if (!entry.is_directory()) {
             FileMeta^ fileMeta = gcnew FileMeta(gcnew String(entry.path().c_str()), entry.file_size());
             this->outTextBox->AppendText(fileMeta->getInfoString());
+            
         }
     }
 }

@@ -10,6 +10,7 @@ ref class FileMeta
 private:
 	String^ pathToFile;
 	uintmax_t fileSize;
+	String^ extension = L"";
 
 public:
 	FileMeta(String^ pathToFile, uintmax_t fileSize);
@@ -19,5 +20,7 @@ public:
 
 	String^ getHumanSize();
 	String^ getInfoString();
+	bool hasExtension();
+	String^ getExtention();
 };
 
