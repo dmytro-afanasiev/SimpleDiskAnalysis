@@ -12,9 +12,11 @@ ref class Analysis
 {
 private:
 	String^ rootPath;
+	String^ id;
 	System::Windows::Forms::TextBox^ outTextBox;
 public:
 	Analysis(String^ rootPath, System::Windows::Forms::TextBox^ % outTextBox);
 	System::Void execute();
+	String^ getId();
 };
 

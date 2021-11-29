@@ -2,6 +2,7 @@
 
 Analysis::Analysis(String^ rootPath, System::Windows::Forms::TextBox^% outTextBox)
 {
+    this->id = Helpers::generateUuid();
     this->rootPath = rootPath;
     this->outTextBox = outTextBox;
 }
@@ -15,4 +16,9 @@ System::Void Analysis::execute()
             this->outTextBox->AppendText(fileMeta->getInfoString());
         }
     }
+}
+
+String^ Analysis::getId()
+{
+    return this->id;
 }

@@ -46,12 +46,17 @@ namespace SimpleDiskAnalysis {
 	private: System::Windows::Forms::ToolStripMenuItem^ helpMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^ aboutMenuItem;
 	private: System::Windows::Forms::Button^ startButton;
-	private: System::Windows::Forms::ToolStripMenuItem^ infoMenuItem;
+
 	private: System::Windows::Forms::FolderBrowserDialog^ choseFolderToAnalyze;
 	private: System::Windows::Forms::TextBox^ analysisInformation;
 	private: System::Windows::Forms::Label^ statusLabel;
 	private: System::Windows::Forms::Label^ statusValueLabel;
 	private: System::Windows::Forms::Button^ clearButton;
+	private: System::Windows::Forms::ToolStripMenuItem^ openMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^ saveMenuItem;
+
+
+	private: System::Windows::Forms::ToolStripMenuItem^ infoMenuItem;
 
 
 
@@ -77,7 +82,6 @@ namespace SimpleDiskAnalysis {
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MainForm::typeid));
 			this->menu = (gcnew System::Windows::Forms::MenuStrip());
 			this->fileMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-			this->infoMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->helpMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->aboutMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->startButton = (gcnew System::Windows::Forms::Button());
@@ -86,6 +90,9 @@ namespace SimpleDiskAnalysis {
 			this->statusLabel = (gcnew System::Windows::Forms::Label());
 			this->statusValueLabel = (gcnew System::Windows::Forms::Label());
 			this->clearButton = (gcnew System::Windows::Forms::Button());
+			this->openMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->saveMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->infoMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->menu->SuspendLayout();
 			this->SuspendLayout();
 			// 
@@ -98,30 +105,25 @@ namespace SimpleDiskAnalysis {
 			this->menu->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) { this->fileMenuItem, this->helpMenuItem });
 			this->menu->Location = System::Drawing::Point(0, 0);
 			this->menu->Name = L"menu";
-			this->menu->Size = System::Drawing::Size(814, 25);
+			this->menu->Size = System::Drawing::Size(814, 28);
 			this->menu->TabIndex = 0;
 			this->menu->Text = L"menuText";
 			// 
 			// fileMenuItem
 			// 
-			this->fileMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(1) { this->infoMenuItem });
+			this->fileMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(3) {
+				this->openMenuItem,
+					this->saveMenuItem, this->infoMenuItem
+			});
 			this->fileMenuItem->Name = L"fileMenuItem";
-			this->fileMenuItem->Size = System::Drawing::Size(57, 21);
+			this->fileMenuItem->Size = System::Drawing::Size(57, 24);
 			this->fileMenuItem->Text = L"Файл";
-			// 
-			// infoMenuItem
-			// 
-			this->infoMenuItem->Name = L"infoMenuItem";
-			this->infoMenuItem->ShortcutKeys = static_cast<System::Windows::Forms::Keys>((System::Windows::Forms::Keys::Control | System::Windows::Forms::Keys::I));
-			this->infoMenuItem->Size = System::Drawing::Size(163, 26);
-			this->infoMenuItem->Text = L"Інфо";
-			this->infoMenuItem->Click += gcnew System::EventHandler(this, &MainForm::infoMenuItemClick);
 			// 
 			// helpMenuItem
 			// 
 			this->helpMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(1) { this->aboutMenuItem });
 			this->helpMenuItem->Name = L"helpMenuItem";
-			this->helpMenuItem->Size = System::Drawing::Size(80, 21);
+			this->helpMenuItem->Size = System::Drawing::Size(80, 24);
 			this->helpMenuItem->Text = L"Справка";
 			// 
 			// aboutMenuItem
@@ -203,6 +205,28 @@ namespace SimpleDiskAnalysis {
 			this->clearButton->Text = L"Очистити";
 			this->clearButton->UseVisualStyleBackColor = false;
 			this->clearButton->Click += gcnew System::EventHandler(this, &MainForm::clearButtonClick);
+			// 
+			// openMenuItem
+			// 
+			this->openMenuItem->Name = L"openMenuItem";
+			this->openMenuItem->ShortcutKeys = static_cast<System::Windows::Forms::Keys>((System::Windows::Forms::Keys::Control | System::Windows::Forms::Keys::O));
+			this->openMenuItem->Size = System::Drawing::Size(224, 26);
+			this->openMenuItem->Text = L"Відкрити";
+			// 
+			// saveMenuItem
+			// 
+			this->saveMenuItem->Name = L"saveMenuItem";
+			this->saveMenuItem->ShortcutKeys = static_cast<System::Windows::Forms::Keys>((System::Windows::Forms::Keys::Control | System::Windows::Forms::Keys::S));
+			this->saveMenuItem->Size = System::Drawing::Size(224, 26);
+			this->saveMenuItem->Text = L"Зберегти";
+			// 
+			// infoMenuItem
+			// 
+			this->infoMenuItem->Name = L"infoMenuItem";
+			this->infoMenuItem->ShortcutKeys = static_cast<System::Windows::Forms::Keys>((System::Windows::Forms::Keys::Control | System::Windows::Forms::Keys::I));
+			this->infoMenuItem->Size = System::Drawing::Size(224, 26);
+			this->infoMenuItem->Text = L"Інфо";
+			this->infoMenuItem->Click += gcnew System::EventHandler(this, &MainForm::infoMenuItemClick);
 			// 
 			// MainForm
 			// 
