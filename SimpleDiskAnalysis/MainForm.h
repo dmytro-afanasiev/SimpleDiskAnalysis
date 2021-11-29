@@ -4,6 +4,7 @@
 #include "helpers.h"
 #include "FileMeta.h"
 #include "Analysis.h"
+#include "ResultsForm.h"
 
 namespace SimpleDiskAnalysis {
 
@@ -57,6 +58,7 @@ namespace SimpleDiskAnalysis {
 
 
 	private: System::Windows::Forms::ToolStripMenuItem^ infoMenuItem;
+	private: System::Windows::Forms::Button^ resultsButton;
 
 
 
@@ -82,6 +84,9 @@ namespace SimpleDiskAnalysis {
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MainForm::typeid));
 			this->menu = (gcnew System::Windows::Forms::MenuStrip());
 			this->fileMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->openMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->saveMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->infoMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->helpMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->aboutMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->startButton = (gcnew System::Windows::Forms::Button());
@@ -90,9 +95,7 @@ namespace SimpleDiskAnalysis {
 			this->statusLabel = (gcnew System::Windows::Forms::Label());
 			this->statusValueLabel = (gcnew System::Windows::Forms::Label());
 			this->clearButton = (gcnew System::Windows::Forms::Button());
-			this->openMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-			this->saveMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-			this->infoMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->resultsButton = (gcnew System::Windows::Forms::Button());
 			this->menu->SuspendLayout();
 			this->SuspendLayout();
 			// 
@@ -118,6 +121,28 @@ namespace SimpleDiskAnalysis {
 			this->fileMenuItem->Name = L"fileMenuItem";
 			this->fileMenuItem->Size = System::Drawing::Size(57, 21);
 			this->fileMenuItem->Text = L"Файл";
+			// 
+			// openMenuItem
+			// 
+			this->openMenuItem->Name = L"openMenuItem";
+			this->openMenuItem->ShortcutKeys = static_cast<System::Windows::Forms::Keys>((System::Windows::Forms::Keys::Control | System::Windows::Forms::Keys::O));
+			this->openMenuItem->Size = System::Drawing::Size(202, 26);
+			this->openMenuItem->Text = L"Відкрити";
+			// 
+			// saveMenuItem
+			// 
+			this->saveMenuItem->Name = L"saveMenuItem";
+			this->saveMenuItem->ShortcutKeys = static_cast<System::Windows::Forms::Keys>((System::Windows::Forms::Keys::Control | System::Windows::Forms::Keys::S));
+			this->saveMenuItem->Size = System::Drawing::Size(202, 26);
+			this->saveMenuItem->Text = L"Зберегти";
+			// 
+			// infoMenuItem
+			// 
+			this->infoMenuItem->Name = L"infoMenuItem";
+			this->infoMenuItem->ShortcutKeys = static_cast<System::Windows::Forms::Keys>((System::Windows::Forms::Keys::Control | System::Windows::Forms::Keys::I));
+			this->infoMenuItem->Size = System::Drawing::Size(202, 26);
+			this->infoMenuItem->Text = L"Інфо";
+			this->infoMenuItem->Click += gcnew System::EventHandler(this, &MainForm::infoMenuItemClick);
 			// 
 			// helpMenuItem
 			// 
@@ -206,27 +231,20 @@ namespace SimpleDiskAnalysis {
 			this->clearButton->UseVisualStyleBackColor = false;
 			this->clearButton->Click += gcnew System::EventHandler(this, &MainForm::clearButtonClick);
 			// 
-			// openMenuItem
+			// resultsButton
 			// 
-			this->openMenuItem->Name = L"openMenuItem";
-			this->openMenuItem->ShortcutKeys = static_cast<System::Windows::Forms::Keys>((System::Windows::Forms::Keys::Control | System::Windows::Forms::Keys::O));
-			this->openMenuItem->Size = System::Drawing::Size(224, 26);
-			this->openMenuItem->Text = L"Відкрити";
-			// 
-			// saveMenuItem
-			// 
-			this->saveMenuItem->Name = L"saveMenuItem";
-			this->saveMenuItem->ShortcutKeys = static_cast<System::Windows::Forms::Keys>((System::Windows::Forms::Keys::Control | System::Windows::Forms::Keys::S));
-			this->saveMenuItem->Size = System::Drawing::Size(224, 26);
-			this->saveMenuItem->Text = L"Зберегти";
-			// 
-			// infoMenuItem
-			// 
-			this->infoMenuItem->Name = L"infoMenuItem";
-			this->infoMenuItem->ShortcutKeys = static_cast<System::Windows::Forms::Keys>((System::Windows::Forms::Keys::Control | System::Windows::Forms::Keys::I));
-			this->infoMenuItem->Size = System::Drawing::Size(224, 26);
-			this->infoMenuItem->Text = L"Інфо";
-			this->infoMenuItem->Click += gcnew System::EventHandler(this, &MainForm::infoMenuItemClick);
+			this->resultsButton->BackColor = System::Drawing::SystemColors::ButtonFace;
+			this->resultsButton->Enabled = false;
+			this->resultsButton->FlatStyle = System::Windows::Forms::FlatStyle::System;
+			this->resultsButton->Font = (gcnew System::Drawing::Font(L"Arial", 10.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->resultsButton->Location = System::Drawing::Point(508, 490);
+			this->resultsButton->Name = L"resultsButton";
+			this->resultsButton->Size = System::Drawing::Size(197, 32);
+			this->resultsButton->TabIndex = 7;
+			this->resultsButton->Text = L"Результати";
+			this->resultsButton->UseVisualStyleBackColor = false;
+			this->resultsButton->Click += gcnew System::EventHandler(this, &MainForm::resultsButtonClick);
 			// 
 			// MainForm
 			// 
@@ -234,6 +252,7 @@ namespace SimpleDiskAnalysis {
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::SystemColors::ButtonFace;
 			this->ClientSize = System::Drawing::Size(939, 532);
+			this->Controls->Add(this->resultsButton);
 			this->Controls->Add(this->clearButton);
 			this->Controls->Add(this->statusValueLabel);
 			this->Controls->Add(this->statusLabel);
@@ -253,6 +272,11 @@ namespace SimpleDiskAnalysis {
 
 		}
 #pragma endregion
+	private: static Analysis^ currentAnalysis = nullptr;
+	public: static bool isCurrentAnalysis();
+	public: static System::Void setCurrentAnalysis(Analysis^% analysis);
+	public: static System::Void setCurrentAnalysis();
+	public: static Analysis^% getCurrentAnalysis();
 
 	private: System::Void mainFormLoad(System::Object^ sender, System::EventArgs^ e);
 
@@ -266,6 +290,7 @@ namespace SimpleDiskAnalysis {
 	private: System::Void setStatusValue();
 
 	private: System::Void clearButtonClick(System::Object^ sender, System::EventArgs^ e);
-	};
+	private: System::Void resultsButtonClick(System::Object^ sender, System::EventArgs^ e);
+};
 }
 

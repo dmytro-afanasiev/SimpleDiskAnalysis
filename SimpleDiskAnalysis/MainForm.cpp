@@ -13,6 +13,28 @@ System::Void SimpleDiskAnalysis::MainForm::mainFormClosing(System::Object^ sende
 	}
 }
 
+
+
+bool SimpleDiskAnalysis::MainForm::isCurrentAnalysis()
+{
+	return MainForm::currentAnalysis == nullptr;
+}
+
+System::Void SimpleDiskAnalysis::MainForm::setCurrentAnalysis(Analysis^% analysis)
+{
+	MainForm::currentAnalysis = analysis;
+}
+
+System::Void SimpleDiskAnalysis::MainForm::setCurrentAnalysis()
+{
+	MainForm::currentAnalysis = nullptr;
+}
+
+Analysis^% SimpleDiskAnalysis::MainForm::getCurrentAnalysis()
+{
+	return MainForm::currentAnalysis;
+}
+
 System::Void SimpleDiskAnalysis::MainForm::mainFormLoad(System::Object^ sender, System::EventArgs^ e) {
 	this->setStatusValue();  // if the method is called without args, they will be default
 }
@@ -24,10 +46,12 @@ System::Void SimpleDiskAnalysis::MainForm::startButtonClick(System::Object^ send
 		Analysis^ analysis = gcnew Analysis(choseFolderToAnalyze->SelectedPath, this->analysisInformation);
 		analysis->execute();
 		this->setStatusValue("аналіз успішно завершено!", System::Drawing::Color::Green);
-		Debug::WriteLine(analysis->getWholeHumanSize());
+		MainForm::setCurrentAnalysis(analysis);
+		this->resultsButton->Enabled = true;
 	}
 	else {
 		this->setStatusValue();
+		this->resultsButton->Enabled = false;
 	}
 }
 
@@ -54,5 +78,13 @@ System::Void SimpleDiskAnalysis::MainForm::clearButtonClick(System::Object^ send
 	if (result == System::Windows::Forms::DialogResult::Yes) {
 		this->analysisInformation->Text = L"";
 		this->setStatusValue();
+		this->resultsButton->Enabled = false;
+		MainForm::setCurrentAnalysis();
 	}
+}
+
+System::Void SimpleDiskAnalysis::MainForm::resultsButtonClick(System::Object^ sender, System::EventArgs^ e)
+{
+	ResultsForm^ resultsForm = gcnew ResultsForm;
+	resultsForm->Show();
 }

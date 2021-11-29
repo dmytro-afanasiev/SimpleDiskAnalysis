@@ -2,6 +2,7 @@
 #include <cstdint>
 #include <cmath>
 #include "helpers.h"
+#define ZERO_EXTENSION "[NO EXTENSION]"
 
 
 using namespace System;
