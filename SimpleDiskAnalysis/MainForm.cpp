@@ -24,6 +24,7 @@ System::Void SimpleDiskAnalysis::MainForm::startButtonClick(System::Object^ send
 		Analysis^ analysis = gcnew Analysis(choseFolderToAnalyze->SelectedPath, this->analysisInformation);
 		analysis->execute();
 		this->setStatusValue("аналіз успішно завершено!", System::Drawing::Color::Green);
+		Debug::WriteLine(analysis->getWholeHumanSize());
 	}
 	else {
 		this->setStatusValue();

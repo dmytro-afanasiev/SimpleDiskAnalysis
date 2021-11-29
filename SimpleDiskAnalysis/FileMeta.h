@@ -1,6 +1,7 @@
 #pragma once
 #include <cstdint>
 #include <cmath>
+#include "helpers.h"
 
 
 using namespace System;

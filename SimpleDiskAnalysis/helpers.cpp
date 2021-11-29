@@ -87,3 +87,20 @@ String^ Helpers::generateUuid()
     return gcnew String(res.c_str());
 }
 
+String^ Helpers::bytesToHumanSize(uintmax_t bytes)
+{
+    if (bytes == 0) {
+        return gcnew String("0 B");
+    }
+    int logBase = 1024;
+    char* suffixes[] = { "B", "KB", "MB", "GB", "TB" };  // 5 
+    short numberOfsuffixes = 5;
+
+    short index = (short)ceil(log(bytes) / log(logBase));
+    if (index > numberOfsuffixes) index = numberOfsuffixes;
+
+    double convertedValue = bytes / pow(logBase, index - 1);
+    convertedValue = (double)((long long int)(convertedValue * 1000.0f) / 1000.0f);  // don't be afraid, I just round it to 2 digits
+    return gcnew String(System::Convert::ToString(convertedValue) + L" " + gcnew String(suffixes[index - 1]));
+}
+

@@ -14,4 +14,5 @@ namespace Helpers {
 	std::string toStandartString(String^ s);
 	String^ getDisksInfoString();
 	String^ generateUuid();
+	String^ bytesToHumanSize(uintmax_t bytes);
 }

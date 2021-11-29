@@ -105,7 +105,7 @@ namespace SimpleDiskAnalysis {
 			this->menu->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) { this->fileMenuItem, this->helpMenuItem });
 			this->menu->Location = System::Drawing::Point(0, 0);
 			this->menu->Name = L"menu";
-			this->menu->Size = System::Drawing::Size(814, 28);
+			this->menu->Size = System::Drawing::Size(939, 25);
 			this->menu->TabIndex = 0;
 			this->menu->Text = L"menuText";
 			// 
@@ -116,14 +116,14 @@ namespace SimpleDiskAnalysis {
 					this->saveMenuItem, this->infoMenuItem
 			});
 			this->fileMenuItem->Name = L"fileMenuItem";
-			this->fileMenuItem->Size = System::Drawing::Size(57, 24);
+			this->fileMenuItem->Size = System::Drawing::Size(57, 21);
 			this->fileMenuItem->Text = L"Файл";
 			// 
 			// helpMenuItem
 			// 
 			this->helpMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(1) { this->aboutMenuItem });
 			this->helpMenuItem->Name = L"helpMenuItem";
-			this->helpMenuItem->Size = System::Drawing::Size(80, 24);
+			this->helpMenuItem->Size = System::Drawing::Size(80, 21);
 			this->helpMenuItem->Text = L"Справка";
 			// 
 			// aboutMenuItem
@@ -142,7 +142,7 @@ namespace SimpleDiskAnalysis {
 				static_cast<System::Byte>(204)));
 			this->startButton->Location = System::Drawing::Point(172, 62);
 			this->startButton->Name = L"startButton";
-			this->startButton->Size = System::Drawing::Size(449, 45);
+			this->startButton->Size = System::Drawing::Size(574, 45);
 			this->startButton->TabIndex = 2;
 			this->startButton->Text = L"Розпочати аналіз";
 			this->startButton->UseVisualStyleBackColor = false;
@@ -166,7 +166,7 @@ namespace SimpleDiskAnalysis {
 			this->analysisInformation->Name = L"analysisInformation";
 			this->analysisInformation->ReadOnly = true;
 			this->analysisInformation->ScrollBars = System::Windows::Forms::ScrollBars::Vertical;
-			this->analysisInformation->Size = System::Drawing::Size(771, 308);
+			this->analysisInformation->Size = System::Drawing::Size(896, 329);
 			this->analysisInformation->TabIndex = 3;
 			// 
 			// statusLabel
@@ -174,7 +174,7 @@ namespace SimpleDiskAnalysis {
 			this->statusLabel->AutoSize = true;
 			this->statusLabel->Font = (gcnew System::Drawing::Font(L"Arial", 10.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->statusLabel->Location = System::Drawing::Point(29, 473);
+			this->statusLabel->Location = System::Drawing::Point(29, 496);
 			this->statusLabel->Name = L"statusLabel";
 			this->statusLabel->Size = System::Drawing::Size(70, 19);
 			this->statusLabel->TabIndex = 4;
@@ -186,7 +186,7 @@ namespace SimpleDiskAnalysis {
 			this->statusValueLabel->Font = (gcnew System::Drawing::Font(L"Arial", 10.2F, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
 			this->statusValueLabel->ForeColor = System::Drawing::SystemColors::ActiveCaptionText;
-			this->statusValueLabel->Location = System::Drawing::Point(96, 473);
+			this->statusValueLabel->Location = System::Drawing::Point(96, 496);
 			this->statusValueLabel->Name = L"statusValueLabel";
 			this->statusValueLabel->Size = System::Drawing::Size(68, 19);
 			this->statusValueLabel->TabIndex = 5;
@@ -198,9 +198,9 @@ namespace SimpleDiskAnalysis {
 			this->clearButton->FlatStyle = System::Windows::Forms::FlatStyle::System;
 			this->clearButton->Font = (gcnew System::Drawing::Font(L"Arial", 10.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->clearButton->Location = System::Drawing::Point(647, 467);
+			this->clearButton->Location = System::Drawing::Point(711, 490);
 			this->clearButton->Name = L"clearButton";
-			this->clearButton->Size = System::Drawing::Size(136, 32);
+			this->clearButton->Size = System::Drawing::Size(197, 32);
 			this->clearButton->TabIndex = 6;
 			this->clearButton->Text = L"Очистити";
 			this->clearButton->UseVisualStyleBackColor = false;
@@ -233,7 +233,7 @@ namespace SimpleDiskAnalysis {
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::SystemColors::ButtonFace;
-			this->ClientSize = System::Drawing::Size(814, 511);
+			this->ClientSize = System::Drawing::Size(939, 532);
 			this->Controls->Add(this->clearButton);
 			this->Controls->Add(this->statusValueLabel);
 			this->Controls->Add(this->statusLabel);
