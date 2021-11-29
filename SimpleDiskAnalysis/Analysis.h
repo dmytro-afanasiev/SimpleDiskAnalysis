@@ -16,15 +16,16 @@ ref struct ExtensionSpreading
 	String^ getWholeHumanSize();
 };
 
-
+[Serializable]
 ref class Analysis
 {
 private:
 	bool finished = false;
 	String^ rootPath;
 	String^ id;
-	System::Windows::Forms::TextBox^ outTextBox;
 	List<FileMeta^>^ files;
+	[NonSerialized]
+	System::Windows::Forms::TextBox^ outTextBox;
 	
 public:
 	Analysis(String^ rootPath, System::Windows::Forms::TextBox^ % outTextBox);
@@ -37,5 +38,6 @@ public:
 	bool isFinished();
 	int getNumberOfAnalysedFiles();
 	Dictionary<String^, ExtensionSpreading^>^% calculateExtensionsSpreading();
+	List<FileMeta^>^ getFiles();
 };
 

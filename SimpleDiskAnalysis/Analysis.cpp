@@ -13,7 +13,7 @@ System::Void Analysis::execute()
     std::string standartRootPath = Helpers::toStandartString(this->rootPath);
     for (const fs::directory_entry& entry : fs::recursive_directory_iterator(standartRootPath, fs::directory_options::skip_permission_denied)) {
         if (!entry.is_directory()) {
-            FileMeta^ fileMeta = gcnew FileMeta(gcnew String(entry.path().c_str()), entry.file_size());
+            FileMeta^ fileMeta = gcnew FileMeta(gcnew String(entry.path().c_str()), entry.file_size(), gcnew String(entry.path().extension().c_str()));
             this->files->Add(fileMeta);
             this->outTextBox->AppendText(fileMeta->getInfoString());
         }
@@ -54,6 +54,7 @@ String^ Analysis::getReport()
     infoLines->Add(String::Format("Статус аналізу: \"{0}\";", this->isFinished() ? "завершений" : "не завершений (це смс не з'явиться ніколи)"));
     infoLines->Add(String::Format("Кореневий шлях: \"{0}\";", this->getRootPath()));
     infoLines->Add(String::Format("Кількість проаналізованих файлів: {0};", this->getNumberOfAnalysedFiles()));
+    infoLines->Add(String::Format("Загальна вага проаналізованих файлів: {0};", this->getWholeHumanSize()));
     infoLines->Add(L"Інформація по типам файлів:");
     
     Dictionary<String^, ExtensionSpreading^>^ spreading =  this->calculateExtensionsSpreading();
@@ -88,6 +89,11 @@ Dictionary<String^, ExtensionSpreading^>^% Analysis::calculateExtensionsSpreadin
         result[extension]->sizeOfFilesThisExtension += e.Current->getFileSize();
     }
     return result;
+}
+
+List<FileMeta^>^ Analysis::getFiles()
+{
+    return this->files;
 }
 
 String^ ExtensionSpreading::getWholeHumanSize()

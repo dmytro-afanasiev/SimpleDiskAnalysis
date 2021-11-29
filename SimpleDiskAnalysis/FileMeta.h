@@ -7,6 +7,7 @@
 
 using namespace System;
 
+[Serializable]
 ref class FileMeta
 {
 private:
@@ -15,7 +16,7 @@ private:
 	String^ extension = L"";
 
 public:
-	FileMeta(String^ pathToFile, uintmax_t fileSize);
+	FileMeta(String^ pathToFile, uintmax_t fileSize, String^ extension);
 	FileMeta(const FileMeta^& another);
 	String^ getPathToFile();
 	uintmax_t getFileSize();

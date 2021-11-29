@@ -1,13 +1,10 @@
 #include "FileMeta.h"
 
-FileMeta::FileMeta(String^ pathToFile, uintmax_t fileSize)
+FileMeta::FileMeta(String^ pathToFile, uintmax_t fileSize, String^ extension)
 {
 	this->pathToFile = pathToFile;
     this->fileSize = fileSize;
-
-	int extension_index = pathToFile->LastIndexOf(L".");
-	if (extension_index != -1)
-		this->extension = pathToFile->Substring(extension_index);
+	this->extension = extension;
 }
 
 FileMeta::FileMeta(const FileMeta^& another)

@@ -15,7 +15,9 @@ namespace SimpleDiskAnalysis {
 	using namespace System::Data;
 	using namespace System::Drawing;
 	using namespace System::Diagnostics;
+	using namespace System::IO;
 	using namespace System::Collections::Generic;
+	using namespace System::Runtime::Serialization::Formatters::Binary;
 
 	/// <summary>
 	/// Summary for MainForm
@@ -59,6 +61,8 @@ namespace SimpleDiskAnalysis {
 
 	private: System::Windows::Forms::ToolStripMenuItem^ infoMenuItem;
 	private: System::Windows::Forms::Button^ resultsButton;
+	private: System::Windows::Forms::SaveFileDialog^ choseFileToSaveAnalysis;
+	private: System::Windows::Forms::OpenFileDialog^ choseFileToOpenAnalysis;
 
 
 
@@ -96,6 +100,8 @@ namespace SimpleDiskAnalysis {
 			this->statusValueLabel = (gcnew System::Windows::Forms::Label());
 			this->clearButton = (gcnew System::Windows::Forms::Button());
 			this->resultsButton = (gcnew System::Windows::Forms::Button());
+			this->choseFileToSaveAnalysis = (gcnew System::Windows::Forms::SaveFileDialog());
+			this->choseFileToOpenAnalysis = (gcnew System::Windows::Forms::OpenFileDialog());
 			this->menu->SuspendLayout();
 			this->SuspendLayout();
 			// 
@@ -128,6 +134,7 @@ namespace SimpleDiskAnalysis {
 			this->openMenuItem->ShortcutKeys = static_cast<System::Windows::Forms::Keys>((System::Windows::Forms::Keys::Control | System::Windows::Forms::Keys::O));
 			this->openMenuItem->Size = System::Drawing::Size(202, 26);
 			this->openMenuItem->Text = L"Відкрити";
+			this->openMenuItem->Click += gcnew System::EventHandler(this, &MainForm::openButtonClick);
 			// 
 			// saveMenuItem
 			// 
@@ -135,6 +142,7 @@ namespace SimpleDiskAnalysis {
 			this->saveMenuItem->ShortcutKeys = static_cast<System::Windows::Forms::Keys>((System::Windows::Forms::Keys::Control | System::Windows::Forms::Keys::S));
 			this->saveMenuItem->Size = System::Drawing::Size(202, 26);
 			this->saveMenuItem->Text = L"Зберегти";
+			this->saveMenuItem->Click += gcnew System::EventHandler(this, &MainForm::saveButtonClick);
 			// 
 			// infoMenuItem
 			// 
@@ -246,6 +254,10 @@ namespace SimpleDiskAnalysis {
 			this->resultsButton->UseVisualStyleBackColor = false;
 			this->resultsButton->Click += gcnew System::EventHandler(this, &MainForm::resultsButtonClick);
 			// 
+			// choseFileToSaveAnalysis
+			// 
+			this->choseFileToSaveAnalysis->DefaultExt = L"bin";
+			// 
 			// MainForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
@@ -277,6 +289,9 @@ namespace SimpleDiskAnalysis {
 	public: static System::Void setCurrentAnalysis(Analysis^% analysis);
 	public: static System::Void setCurrentAnalysis();
 	public: static Analysis^% getCurrentAnalysis();
+	
+	public: System::Void setAnalysisChosen(Analysis^% analysis, bool isLoaded);
+	public: System::Void setAnalysisNotChosen();
 
 	private: System::Void mainFormLoad(System::Object^ sender, System::EventArgs^ e);
 
@@ -291,6 +306,8 @@ namespace SimpleDiskAnalysis {
 
 	private: System::Void clearButtonClick(System::Object^ sender, System::EventArgs^ e);
 	private: System::Void resultsButtonClick(System::Object^ sender, System::EventArgs^ e);
-};
+	private: System::Void openButtonClick(System::Object^ sender, System::EventArgs^ e);
+	private: System::Void saveButtonClick(System::Object^ sender, System::EventArgs^ e);
+	};
 }
 
