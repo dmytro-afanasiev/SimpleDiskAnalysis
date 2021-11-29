@@ -18,12 +18,15 @@ System::Void SimpleDiskAnalysis::MainForm::mainFormLoad(System::Object^ sender, 
 }
 
 System::Void SimpleDiskAnalysis::MainForm::startButtonClick(System::Object^ sender, System::EventArgs^ e) {
-	this->setStatusValue("аналіз триває...", System::Drawing::Color::Yellow);
+	this->setStatusValue("аналіз триває...", System::Drawing::Color::Brown);
 	Windows::Forms::DialogResult result = choseFolderToAnalyze->ShowDialog();
 	if (result == Windows::Forms::DialogResult::OK) {
 		Analysis^ analysis = gcnew Analysis(choseFolderToAnalyze->SelectedPath, this->analysisInformation);
 		analysis->execute();
 		this->setStatusValue("аналіз успішно завершено!", System::Drawing::Color::Green);
+	}
+	else {
+		this->setStatusValue();
 	}
 }
 
@@ -42,4 +45,13 @@ System::Void SimpleDiskAnalysis::MainForm::setStatusValue(String^ text, System::
 System::Void SimpleDiskAnalysis::MainForm::setStatusValue()
 {
 	this->setStatusValue("аналіз не розпочато", System::Drawing::Color::Gray);
+}
+
+System::Void SimpleDiskAnalysis::MainForm::clearButtonClick(System::Object^ sender, System::EventArgs^ e)
+{
+	System::Windows::Forms::DialogResult result = MessageBox::Show("Ви дійсно хочете очистити результати аналізу?", "Увага!", MessageBoxButtons::YesNo, MessageBoxIcon::Warning);
+	if (result == System::Windows::Forms::DialogResult::Yes) {
+		this->analysisInformation->Text = L"";
+		this->setStatusValue();
+	}
 }
