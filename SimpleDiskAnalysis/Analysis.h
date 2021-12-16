@@ -26,9 +26,11 @@ private:
 	List<FileMeta^>^ files;
 	[NonSerialized]
 	System::Windows::Forms::TextBox^ outTextBox;
+	[NonSerialized]
+	System::Windows::Forms::ProgressBar^ analysisProgress;
 	
 public:
-	Analysis(String^ rootPath, System::Windows::Forms::TextBox^ % outTextBox);
+	Analysis(String^ rootPath, System::Windows::Forms::TextBox^ % outTextBox, System::Windows::Forms::ProgressBar^ % analysisProgress);
 	System::Void execute();
 	String^ getRootPath();
 	String^ getId();
@@ -37,6 +39,7 @@ public:
 	String^ getReport();
 	bool isFinished();
 	int getNumberOfAnalysedFiles();
+	int getNumberOfDirs();
 	Dictionary<String^, ExtensionSpreading^>^% calculateExtensionsSpreading();
 	List<FileMeta^>^ getFiles();
 };

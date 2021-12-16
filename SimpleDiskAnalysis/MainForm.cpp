@@ -61,6 +61,7 @@ System::Void SimpleDiskAnalysis::MainForm::setAnalysisNotChosen()
 	this->resultsButton->Enabled = false;
 	this->setStatusValue();
 	this->analysisInformation->Text = L"";
+	this->analysisProgress->Value = 0;
 }
 
 System::Void SimpleDiskAnalysis::MainForm::mainFormLoad(System::Object^ sender, System::EventArgs^ e) {
@@ -75,8 +76,9 @@ System::Void SimpleDiskAnalysis::MainForm::startButtonClick(System::Object^ send
 	}
 	this->setStatusValue("аналіз триває...", System::Drawing::Color::Brown);
 	Windows::Forms::DialogResult result = choseFolderToAnalyze->ShowDialog();
+
 	if (result == Windows::Forms::DialogResult::OK) {
-		Analysis^ analysis = gcnew Analysis(choseFolderToAnalyze->SelectedPath, this->analysisInformation);
+		Analysis^ analysis = gcnew Analysis(choseFolderToAnalyze->SelectedPath, this->analysisInformation, this->analysisProgress);
 		analysis->execute();
 		
 		this->setAnalysisChosen(analysis, false);

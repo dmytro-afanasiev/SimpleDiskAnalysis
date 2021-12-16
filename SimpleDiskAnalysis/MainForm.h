@@ -63,6 +63,9 @@ namespace SimpleDiskAnalysis {
 	private: System::Windows::Forms::Button^ resultsButton;
 	private: System::Windows::Forms::SaveFileDialog^ choseFileToSaveAnalysis;
 	private: System::Windows::Forms::OpenFileDialog^ choseFileToOpenAnalysis;
+	private: System::Windows::Forms::ProgressBar^ analysisProgress;
+
+
 
 
 
@@ -102,6 +105,7 @@ namespace SimpleDiskAnalysis {
 			this->resultsButton = (gcnew System::Windows::Forms::Button());
 			this->choseFileToSaveAnalysis = (gcnew System::Windows::Forms::SaveFileDialog());
 			this->choseFileToOpenAnalysis = (gcnew System::Windows::Forms::OpenFileDialog());
+			this->analysisProgress = (gcnew System::Windows::Forms::ProgressBar());
 			this->menu->SuspendLayout();
 			this->SuspendLayout();
 			// 
@@ -258,12 +262,20 @@ namespace SimpleDiskAnalysis {
 			// 
 			this->choseFileToSaveAnalysis->DefaultExt = L"bin";
 			// 
+			// analysisProgress
+			// 
+			this->analysisProgress->Location = System::Drawing::Point(345, 491);
+			this->analysisProgress->Name = L"analysisProgress";
+			this->analysisProgress->Size = System::Drawing::Size(157, 30);
+			this->analysisProgress->TabIndex = 8;
+			// 
 			// MainForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::SystemColors::ButtonFace;
 			this->ClientSize = System::Drawing::Size(939, 532);
+			this->Controls->Add(this->analysisProgress);
 			this->Controls->Add(this->resultsButton);
 			this->Controls->Add(this->clearButton);
 			this->Controls->Add(this->statusValueLabel);

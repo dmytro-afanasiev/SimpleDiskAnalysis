@@ -1,21 +1,30 @@
 #include "Analysis.h"
 
-Analysis::Analysis(String^ rootPath, System::Windows::Forms::TextBox^% outTextBox)
+Analysis::Analysis(String^ rootPath, System::Windows::Forms::TextBox^% outTextBox, System::Windows::Forms::ProgressBar^% analysisProgress)
 {
     this->id = Helpers::generateUuid();
     this->rootPath = rootPath;
     this->outTextBox = outTextBox;
+    this->analysisProgress = analysisProgress;
     this->files = gcnew List<FileMeta^>(50);
 }
 
 System::Void Analysis::execute()
 {
     std::string standartRootPath = Helpers::toStandartString(this->rootPath);
+    this->analysisProgress->Minimum = 0;
+    this->analysisProgress->Maximum = this->getNumberOfDirs();
+    this->analysisProgress->Step = 1;
     for (const fs::directory_entry& entry : fs::recursive_directory_iterator(standartRootPath, fs::directory_options::skip_permission_denied)) {
         if (!entry.is_directory()) {
             FileMeta^ fileMeta = gcnew FileMeta(gcnew String(entry.path().c_str()), entry.file_size(), gcnew String(entry.path().extension().c_str()));
             this->files->Add(fileMeta);
             this->outTextBox->AppendText(fileMeta->getInfoString());
+        }
+        else {
+            if (entry.path().parent_path().string() == standartRootPath) {
+                this->analysisProgress->PerformStep();
+            }
         }
     }
     this->finished = true;
@@ -74,6 +83,18 @@ bool Analysis::isFinished()
 int Analysis::getNumberOfAnalysedFiles()
 {
     return this->files->Count;
+}
+
+int Analysis::getNumberOfDirs()
+{
+    int count = 0;
+    std::string standartRootPath = Helpers::toStandartString(this->rootPath);
+    for (const fs::directory_entry& entry : fs::directory_iterator(standartRootPath, fs::directory_options::skip_permission_denied)) {
+        if (entry.is_directory()) {
+            count++;
+        }
+    }
+    return count;
 }
 
 Dictionary<String^, ExtensionSpreading^>^% Analysis::calculateExtensionsSpreading()
