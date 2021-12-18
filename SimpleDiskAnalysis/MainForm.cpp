@@ -14,10 +14,33 @@ System::Void SimpleDiskAnalysis::MainForm::mainFormClosing(System::Object^ sende
 }
 
 
+System::Void SimpleDiskAnalysis::MainForm::setAnalysisFinishedAsync()
+{
+	// I know, thats not good implementation, but I've never worked with this threads (delegation) async stuff in C++(cli) so I'm really happy that it just works.
+	this->resultsButton->Enabled = false;
+	this->clearButton->Enabled = false;
+	this->startButton->Enabled = false;
+	this->saveMenuItem->Enabled = false;
+	this->openMenuItem->Enabled = false;
+	SimpleDiskAnalysis::MainForm::currentAnalysisThread->Join();
+	this->setAnalysisChosen(false);
+	this->clearButton->Enabled = true;
+	this->startButton->Enabled = true;
+	this->saveMenuItem->Enabled = true;
+	this->openMenuItem->Enabled = true;
+}
 
 bool SimpleDiskAnalysis::MainForm::isCurrentAnalysis()
 {
 	if (MainForm::currentAnalysis == nullptr) {
+		return false;
+	}
+	return true;
+}
+
+bool SimpleDiskAnalysis::MainForm::isCurrentAnalysisThread()
+{
+	if (MainForm::currentAnalysisThread == nullptr) {
 		return false;
 	}
 	return true;
@@ -28,9 +51,20 @@ System::Void SimpleDiskAnalysis::MainForm::setCurrentAnalysis(Analysis^% analysi
 	MainForm::currentAnalysis = analysis;
 }
 
+System::Void SimpleDiskAnalysis::MainForm::setCurrentAnalysisThread(System::Threading::Thread^% thread)
+{
+	MainForm::currentAnalysisThread = thread;
+}
+
 System::Void SimpleDiskAnalysis::MainForm::setCurrentAnalysis()
 {
 	MainForm::currentAnalysis = nullptr;
+}
+
+System::Void SimpleDiskAnalysis::MainForm::setCurrentAnalysisThread()
+{
+	MainForm::currentAnalysisThread = nullptr;
+
 }
 
 Analysis^% SimpleDiskAnalysis::MainForm::getCurrentAnalysis()
@@ -38,12 +72,16 @@ Analysis^% SimpleDiskAnalysis::MainForm::getCurrentAnalysis()
 	return MainForm::currentAnalysis;
 }
 
-System::Void SimpleDiskAnalysis::MainForm::setAnalysisChosen(Analysis^% analysis, bool isLoaded)
+System::Threading::Thread^% SimpleDiskAnalysis::MainForm::getCurrentAnalysisThread()
 {
-	MainForm::setCurrentAnalysis(analysis);
+	return MainForm::currentAnalysisThread;
+}
+
+System::Void SimpleDiskAnalysis::MainForm::setAnalysisChosen(bool isLoaded)
+{
 	this->resultsButton->Enabled = true;
 	if (isLoaded) {
-		List<FileMeta^>::Enumerator e = analysis->getFiles()->GetEnumerator();
+		List<FileMeta^>::Enumerator e = MainForm::getCurrentAnalysis()->getFiles()->GetEnumerator();
 		String^ result = "";
 		while (e.MoveNext()) {
 			result = result + e.Current->getInfoString();
@@ -58,6 +96,7 @@ System::Void SimpleDiskAnalysis::MainForm::setAnalysisChosen(Analysis^% analysis
 System::Void SimpleDiskAnalysis::MainForm::setAnalysisNotChosen()
 {
 	MainForm::setCurrentAnalysis();  // set it to nullptr - look above..
+	MainForm::setCurrentAnalysisThread();
 	this->resultsButton->Enabled = false;
 	this->setStatusValue();
 	this->analysisInformation->Text = L"";
@@ -69,7 +108,7 @@ System::Void SimpleDiskAnalysis::MainForm::mainFormLoad(System::Object^ sender, 
 }
 
 System::Void SimpleDiskAnalysis::MainForm::startButtonClick(System::Object^ sender, System::EventArgs^ e) {
-	
+
 	if (MainForm::isCurrentAnalysis()) {
 		System::Windows::Forms::DialogResult result = MessageBox::Show("Спочатку збережіть або очистіть результати поточного аналізу", "Увага!", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 		return;
@@ -79,9 +118,12 @@ System::Void SimpleDiskAnalysis::MainForm::startButtonClick(System::Object^ send
 
 	if (result == Windows::Forms::DialogResult::OK) {
 		Analysis^ analysis = gcnew Analysis(choseFolderToAnalyze->SelectedPath, this->analysisInformation, this->analysisProgress);
-		analysis->execute();
-		
-		this->setAnalysisChosen(analysis, false);
+		MainForm::setCurrentAnalysis(analysis);
+		System::Threading::Thread^ analysisThread = gcnew System::Threading::Thread(gcnew System::Threading::ThreadStart(analysis, &Analysis::execute));
+		System::Threading::Thread^ setAnalysisStatusThread = gcnew System::Threading::Thread(gcnew System::Threading::ThreadStart(this, &MainForm::setAnalysisFinishedAsync));
+		MainForm::setCurrentAnalysisThread(analysisThread);
+		analysisThread->Start();
+		setAnalysisStatusThread->Start();
 	}
 	else {
 		this->setAnalysisNotChosen();
@@ -131,7 +173,8 @@ System::Void SimpleDiskAnalysis::MainForm::openButtonClick(System::Object^ sende
 		BinaryFormatter^ binaryFormatter = gcnew BinaryFormatter();
 		Analysis^ analysis = dynamic_cast<Analysis^>(binaryFormatter->Deserialize(fileStream));
 		fileStream->Close();
-		this->setAnalysisChosen(analysis, true);
+		MainForm::setCurrentAnalysis(analysis);
+		this->setAnalysisChosen(true);
 	}
 }
 

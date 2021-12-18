@@ -297,12 +297,18 @@ namespace SimpleDiskAnalysis {
 		}
 #pragma endregion
 	private: static Analysis^ currentAnalysis = nullptr;
+	private: static System::Threading::Thread^ currentAnalysisThread = nullptr;
+	public: System::Void setAnalysisFinishedAsync();
 	public: static bool isCurrentAnalysis();
+	public: static bool isCurrentAnalysisThread();
 	public: static System::Void setCurrentAnalysis(Analysis^% analysis);
+	public: static System::Void setCurrentAnalysisThread(System::Threading::Thread^% thread);
 	public: static System::Void setCurrentAnalysis();
+	public: static System::Void setCurrentAnalysisThread();
 	public: static Analysis^% getCurrentAnalysis();
+	public: static System::Threading::Thread^% getCurrentAnalysisThread();
 	
-	public: System::Void setAnalysisChosen(Analysis^% analysis, bool isLoaded);
+	public: System::Void setAnalysisChosen(bool isLoaded);
 	public: System::Void setAnalysisNotChosen();
 
 	private: System::Void mainFormLoad(System::Object^ sender, System::EventArgs^ e);
