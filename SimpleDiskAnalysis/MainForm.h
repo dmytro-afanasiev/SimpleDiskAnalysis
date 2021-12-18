@@ -64,6 +64,8 @@ namespace SimpleDiskAnalysis {
 	private: System::Windows::Forms::SaveFileDialog^ choseFileToSaveAnalysis;
 	private: System::Windows::Forms::OpenFileDialog^ choseFileToOpenAnalysis;
 	private: System::Windows::Forms::ProgressBar^ analysisProgress;
+	private: System::Windows::Forms::Button^ abortButton;
+
 
 
 
@@ -106,6 +108,7 @@ namespace SimpleDiskAnalysis {
 			this->choseFileToSaveAnalysis = (gcnew System::Windows::Forms::SaveFileDialog());
 			this->choseFileToOpenAnalysis = (gcnew System::Windows::Forms::OpenFileDialog());
 			this->analysisProgress = (gcnew System::Windows::Forms::ProgressBar());
+			this->abortButton = (gcnew System::Windows::Forms::Button());
 			this->menu->SuspendLayout();
 			this->SuspendLayout();
 			// 
@@ -232,6 +235,7 @@ namespace SimpleDiskAnalysis {
 			// clearButton
 			// 
 			this->clearButton->BackColor = System::Drawing::SystemColors::ButtonFace;
+			this->clearButton->Enabled = false;
 			this->clearButton->FlatStyle = System::Windows::Forms::FlatStyle::System;
 			this->clearButton->Font = (gcnew System::Drawing::Font(L"Arial", 10.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
@@ -269,12 +273,28 @@ namespace SimpleDiskAnalysis {
 			this->analysisProgress->Size = System::Drawing::Size(157, 30);
 			this->analysisProgress->TabIndex = 8;
 			// 
+			// abortButton
+			// 
+			this->abortButton->BackColor = System::Drawing::SystemColors::ButtonFace;
+			this->abortButton->Enabled = false;
+			this->abortButton->FlatStyle = System::Windows::Forms::FlatStyle::System;
+			this->abortButton->Font = (gcnew System::Drawing::Font(L"Arial", 10.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->abortButton->Location = System::Drawing::Point(755, 117);
+			this->abortButton->Name = L"abortButton";
+			this->abortButton->Size = System::Drawing::Size(153, 32);
+			this->abortButton->TabIndex = 9;
+			this->abortButton->Text = L"Відмінити скан";
+			this->abortButton->UseVisualStyleBackColor = false;
+			this->abortButton->Click += gcnew System::EventHandler(this, &MainForm::abortButtonClick);
+			// 
 			// MainForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::SystemColors::ButtonFace;
 			this->ClientSize = System::Drawing::Size(939, 532);
+			this->Controls->Add(this->abortButton);
 			this->Controls->Add(this->analysisProgress);
 			this->Controls->Add(this->resultsButton);
 			this->Controls->Add(this->clearButton);
@@ -298,6 +318,8 @@ namespace SimpleDiskAnalysis {
 #pragma endregion
 	private: static Analysis^ currentAnalysis = nullptr;
 	private: static System::Threading::Thread^ currentAnalysisThread = nullptr;
+	public: static System::Threading::Thread^ setAnalysisStatusThread = nullptr;
+
 	public: System::Void setAnalysisFinishedAsync();
 	public: static bool isCurrentAnalysis();
 	public: static bool isCurrentAnalysisThread();
@@ -307,7 +329,7 @@ namespace SimpleDiskAnalysis {
 	public: static System::Void setCurrentAnalysisThread();
 	public: static Analysis^% getCurrentAnalysis();
 	public: static System::Threading::Thread^% getCurrentAnalysisThread();
-	
+
 	public: System::Void setAnalysisChosen(bool isLoaded);
 	public: System::Void setAnalysisNotChosen();
 
@@ -326,6 +348,8 @@ namespace SimpleDiskAnalysis {
 	private: System::Void resultsButtonClick(System::Object^ sender, System::EventArgs^ e);
 	private: System::Void openButtonClick(System::Object^ sender, System::EventArgs^ e);
 	private: System::Void saveButtonClick(System::Object^ sender, System::EventArgs^ e);
+
+	private: System::Void abortButtonClick(System::Object^ sender, System::EventArgs^ e);
 	};
 }
 

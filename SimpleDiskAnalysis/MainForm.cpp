@@ -22,12 +22,14 @@ System::Void SimpleDiskAnalysis::MainForm::setAnalysisFinishedAsync()
 	this->startButton->Enabled = false;
 	this->saveMenuItem->Enabled = false;
 	this->openMenuItem->Enabled = false;
-	SimpleDiskAnalysis::MainForm::currentAnalysisThread->Join();
+	this->abortButton->Enabled = true;
+	MainForm::getCurrentAnalysisThread()->Join();
 	this->setAnalysisChosen(false);
 	this->clearButton->Enabled = true;
 	this->startButton->Enabled = true;
 	this->saveMenuItem->Enabled = true;
 	this->openMenuItem->Enabled = true;
+	this->abortButton->Enabled = false;
 }
 
 bool SimpleDiskAnalysis::MainForm::isCurrentAnalysis()
@@ -87,9 +89,11 @@ System::Void SimpleDiskAnalysis::MainForm::setAnalysisChosen(bool isLoaded)
 			result = result + e.Current->getInfoString();
 		}
 		this->analysisInformation->Text = result;
+		this->clearButton->Enabled = true;
 		this->setStatusValue("аналіз успішно завантажено!", System::Drawing::Color::Green);
 		return;
 	}
+	this->clearButton->Enabled = true;
 	this->setStatusValue("аналіз успішно завершено!", System::Drawing::Color::Green);
 }
 
@@ -101,6 +105,10 @@ System::Void SimpleDiskAnalysis::MainForm::setAnalysisNotChosen()
 	this->setStatusValue();
 	this->analysisInformation->Text = L"";
 	this->analysisProgress->Value = 0;
+	this->clearButton->Enabled = false;
+	this->abortButton->Enabled = false;
+	this->saveMenuItem->Enabled = true;
+	this->openMenuItem->Enabled = true;
 }
 
 System::Void SimpleDiskAnalysis::MainForm::mainFormLoad(System::Object^ sender, System::EventArgs^ e) {
@@ -122,6 +130,7 @@ System::Void SimpleDiskAnalysis::MainForm::startButtonClick(System::Object^ send
 		System::Threading::Thread^ analysisThread = gcnew System::Threading::Thread(gcnew System::Threading::ThreadStart(analysis, &Analysis::execute));
 		System::Threading::Thread^ setAnalysisStatusThread = gcnew System::Threading::Thread(gcnew System::Threading::ThreadStart(this, &MainForm::setAnalysisFinishedAsync));
 		MainForm::setCurrentAnalysisThread(analysisThread);
+		MainForm::setAnalysisStatusThread = setAnalysisStatusThread;
 		analysisThread->Start();
 		setAnalysisStatusThread->Start();
 	}
@@ -194,3 +203,14 @@ System::Void SimpleDiskAnalysis::MainForm::saveButtonClick(System::Object^ sende
 		fileStream->Close();
 	}
 }
+
+System::Void SimpleDiskAnalysis::MainForm::abortButtonClick(System::Object^ sender, System::EventArgs^ e)
+{
+	System::Windows::Forms::DialogResult result = MessageBox::Show("Ви дійсно хочете зупинити аналіз? Усі дані буде втрачено", "Увага!", MessageBoxButtons::YesNo, MessageBoxIcon::Warning);
+	if (result == System::Windows::Forms::DialogResult::Yes) {
+		MainForm::getCurrentAnalysisThread()->Abort();
+		MainForm::setAnalysisStatusThread->Join();
+		this->setAnalysisNotChosen();
+	}
+}
+
